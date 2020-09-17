@@ -1,3 +1,0 @@
-- Konfiguration, sachen einstellbar machen
-- Aufräumen
-- speichern laden

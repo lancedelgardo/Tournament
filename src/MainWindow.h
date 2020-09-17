@@ -29,5 +29,9 @@ class MainWindow : public QMainWindow
     QMap< Match *, MatchWidget * > matchMap;
 
     Tournament *t;
+
+    // QWidget interface
+  protected:
+    void closeEvent(QCloseEvent *event) override;
 };
 #endif  // MAINWINDOW_H

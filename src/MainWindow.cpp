@@ -35,3 +35,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 MainWindow::~MainWindow() { delete ui; }
 
 void MainWindow::onMatchFinishedPerClick(Match *match, Player *winner) { t->getCurrentRound()->finishMatch(match, winner); }
+
+
+void MainWindow::closeEvent(QCloseEvent *event) { Settings::instance()->save(); }

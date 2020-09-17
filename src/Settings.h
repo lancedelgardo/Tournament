@@ -11,7 +11,7 @@ class Settings : public QObject
 
   public:
     static Settings *instance(QObject *parent = Q_NULLPTR);
-    void load();
+    bool load();
     bool save();
 
     // delete copy-ctor and asignment operator

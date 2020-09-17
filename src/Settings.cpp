@@ -48,11 +48,39 @@ void Settings::toJson(QJsonObject &json)
     json["Settings"] = arr;
 }
 
-void Settings::fromJson(const QJsonObject &json) {}
+void Settings::fromJson(const QJsonObject &json)
+{
+    if (!json.contains("Settings") || !json["Settings"].isArray()) return;
+
+    auto array = json["Settings"].toArray();
+    foreach (auto arrayItem, array)
+    {
+        if (!arrayItem.isObject()) continue;
+        auto jsonSetup = arrayItem.toObject();
+
+        m_SettingsData = new SettingsData();
+        m_SettingsData->fromJson(jsonSetup);
+    }
+}
 
 SettingsData *Settings::getSettingsData() const { return m_SettingsData; }
 
-void Settings::load() {}
+bool Settings::load()
+{
+    QFile file(filePath);
+    if (!file.open(QIODevice::ReadOnly))
+    {
+        return false;
+    }
+    QJsonDocument doc = QJsonDocument::fromJson(file.readAll());
+    file.close();
+
+    QJsonObject rootObject = doc.object();
+
+    fromJson(rootObject);
+
+    return true;
+}
 
 bool Settings::save()
 {
