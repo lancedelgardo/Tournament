@@ -112,11 +112,11 @@ void TournamentGraphicScene::init()
 
 
             GraphicsItem *graphicsItem = new GraphicsItem(QRectF(0, 0, m_MatchWidgetWidth, m_MatchWidgetHeight), match);
-            connect(graphicsItem, SIGNAL(clicked(Player *)), this, SIGNAL(itemClicked(Player *)));
             //            auto item = addWidget(graphicsItem);
             graphicsItem->setPos(x, y);
             roundItems.append(graphicsItem);
             items.insert(match, graphicsItem);
+            addItem(graphicsItem);
         }
 
         auto textItem = addText(rounds[i]->getName(), QFont("sans", 16, 2));

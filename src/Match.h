@@ -30,6 +30,9 @@ class Match : public QObject
     QString getName() const;
     void setName(const QString &Name);
 
+    bool IsActive() const;
+    void setActive(bool active);
+
   private:
     void finish();
 
@@ -49,6 +52,7 @@ class Match : public QObject
     Player *winner = Q_NULLPTR;
     bool m_Finished = false;
     QString m_Name;
+    bool m_IsActive = false;
 
   public slots:
     void onTimerFinished();

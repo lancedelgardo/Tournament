@@ -103,6 +103,10 @@ void Match::onPreviousMatchFinished()
     requestUpdate();
 }
 
+bool Match::IsActive() const { return m_IsActive; }
+
+void Match::setActive(bool IsActive) { m_IsActive = IsActive; }
+
 void Match::onTimerFinished()
 {
     if (player1)

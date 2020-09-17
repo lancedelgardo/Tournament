@@ -71,7 +71,12 @@ void GraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
     QPainterPath path;
     path.addRoundedRect(rect, 5, 5);
     painter->fillPath(path, QColor(105, 105, 105));
+    if (m_Match->IsActive())
+    {
+        painter->setPen(QColor(117, 233, 0));
+    }
     painter->drawPath(path);
+    painter->setPen(QColor(0, 0, 0));
 
     // Middle Seperator
     QPainterPath seperator;
@@ -126,9 +131,9 @@ void GraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
 
 
 void GraphicsItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
-{ /* QGraphicsItem::mousePressEvent(event);*/
+{
+    if (!m_Match->IsActive()) QGraphicsItem::mousePressEvent(event);
 }
-
 
 void GraphicsItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
@@ -140,12 +145,16 @@ void GraphicsItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     QPointF pos = event->buttonDownPos(Qt::LeftButton);
     if (upperHalf.contains(pos))
     {
-        clicked(m_Match);
+        //        clicked(m_Match);
         qDebug() << "MouseRelease On UpperHalf";
+        //        QGraphicsItem::mouseReleaseEvent(event);
     }
     else if (lowerHalf.contains(pos))
     {
-        clicked(m_Match);
+        //        clicked(m_Match);
         qDebug() << "MouseRelease On LowerHalf";
+        //        QGraphicsItem::mouseReleaseEvent(event);
     }
 }
+
+void GraphicsItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event) { QGraphicsItem::mouseMoveEvent(event); }

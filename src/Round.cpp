@@ -69,9 +69,10 @@ void Round::startNextMatch()
                     m->requestUpdate();
                 }
             }
+            m->setActive(true);
             connect(m, SIGNAL(finished()), this, SLOT(onMatchFinished()));
             matchStarted(m);
-            QTimer::singleShot(2000, m, SLOT(onTimerFinished()));
+            QTimer::singleShot(20000, m, SLOT(onTimerFinished()));
             return;
         }
     }
@@ -92,7 +93,12 @@ QList< Player * > Round::getWinners()
     return players;
 }
 
-void Round::onMatchFinished() { startNextMatch(); }
+void Round::onMatchFinished()
+{
+    Match *m = static_cast< Match * >(sender());
+    if (m) m->setActive(false);
+    startNextMatch();
+}
 
 QList< Match * > Round::getMatches() const { return m_Matches; }
 

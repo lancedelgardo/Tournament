@@ -22,9 +22,11 @@ class GraphicsItem : public QObject, public QGraphicsItem
     Match *m_Match = Q_NULLPTR;
     QRectF upperHalf;
     QRectF lowerHalf;
+    bool pressing = false;
+    bool moving = false;
 
   signals:
-    void clicked(Player *player);
+    //    void clicked(Player *player);
 
   private slots:
     void requestUpdate();
@@ -37,10 +39,8 @@ class GraphicsItem : public QObject, public QGraphicsItem
     // QGraphicsItem interface
   protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
-
-    // QGraphicsItem interface
-  protected:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
 };
 
 #endif  // GRAPHICSITEM_H
