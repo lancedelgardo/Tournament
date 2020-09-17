@@ -35,6 +35,7 @@ void Tournament::createFirstRound()
 
     Round *round = new Round(randomizedPlayers, this);
     addRound(round);
+    m_CurrentRound = round;
 }
 
 void Tournament::createRound(Round *previousRound)
@@ -59,6 +60,8 @@ void Tournament::addRound(Round *round)
     m_Rounds.append(round);
 }
 
+Round *Tournament::getCurrentRound() const { return m_CurrentRound; }
+
 QList< Round * > Tournament::getRounds() const { return m_Rounds; }
 
 QList< Player * > Tournament::getPlayers() const { return m_Players; }
@@ -68,7 +71,8 @@ bool Tournament::isFinished() const { return m_Finished; }
 void Tournament::onRoundFinished()
 {
     Round *round = static_cast< Round * >(sender());
-
+    if (!round) throw Q_NULLPTR;
+    m_CurrentRound = round;
     auto winners = round->getWinners();
 
     if (winners.size() == 1)

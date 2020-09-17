@@ -19,6 +19,9 @@ class MainWindow : public QMainWindow
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+  private slots:
+    void onMatchFinishedPerClick(Match *match, Player *winner);
+
   private:
     Ui::MainWindow *ui;
     MatchWidget *mw3 = Q_NULLPTR;

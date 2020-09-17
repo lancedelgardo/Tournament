@@ -47,6 +47,12 @@ void Round::createMatches(QList< Player * > players)
     }
 }
 
+void Round::finishMatch(Match *m, Player *winner)
+{
+    m->setWinner(winner);
+    m->finish();
+}
+
 void Round::startNextMatch()
 {
     foreach (auto m, m_Matches)
@@ -72,7 +78,7 @@ void Round::startNextMatch()
             m->setActive(true);
             connect(m, SIGNAL(finished()), this, SLOT(onMatchFinished()));
             matchStarted(m);
-            QTimer::singleShot(20000, m, SLOT(onTimerFinished()));
+            //            QTimer::singleShot(20000, m, SLOT(onTimerFinished()));
             return;
         }
     }

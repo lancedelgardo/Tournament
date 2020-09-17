@@ -3,6 +3,8 @@
 #include "Tournament.h"
 #include "MatchWidgetForm.h"
 #include "GraphicsItem.h"
+#include "Match.h"
+#include "Player.h"
 
 #include <QMap>
 #include <QList>
@@ -19,6 +21,8 @@ TournamentGraphicScene::TournamentGraphicScene(Tournament *tournament)
 }
 
 void TournamentGraphicScene::requestUpdate() { update(); }
+
+void TournamentGraphicScene::onItemClicked(Match *match, Player *winner) { itemClicked(match, winner); }
 
 void TournamentGraphicScene::init()
 {
@@ -112,7 +116,7 @@ void TournamentGraphicScene::init()
 
 
             GraphicsItem *graphicsItem = new GraphicsItem(QRectF(0, 0, m_MatchWidgetWidth, m_MatchWidgetHeight), match);
-            //            auto item = addWidget(graphicsItem);
+            connect(graphicsItem, SIGNAL(clicked(Match *, Player *)), this, SLOT(onItemClicked(Match *, Player *)));
             graphicsItem->setPos(x, y);
             roundItems.append(graphicsItem);
             items.insert(match, graphicsItem);

@@ -13,6 +13,7 @@ class Round : public QObject
     explicit Round(QList< Match * > previousRoundMatches, QObject *parent = nullptr);
 
     void createMatches(QList< Player * > players);
+    void finishMatch(Match *m, Player *winner);
     bool isFinished() const;
     QList< Player * > getWinners();
 

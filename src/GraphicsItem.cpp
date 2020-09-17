@@ -2,7 +2,6 @@
 
 #include "Match.h"
 
-
 #include <QPainter>
 #include <QPainterPath>
 #include <QFontMetrics>
@@ -133,11 +132,12 @@ void GraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
 void GraphicsItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     if (!m_Match->IsActive()) QGraphicsItem::mousePressEvent(event);
+    ignoreClick = false;
 }
 
 void GraphicsItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-    if (!m_Match)
+    if (!m_Match || ignoreClick)
     {
         QGraphicsItem::mouseReleaseEvent(event);
         return;
@@ -145,16 +145,20 @@ void GraphicsItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     QPointF pos = event->buttonDownPos(Qt::LeftButton);
     if (upperHalf.contains(pos))
     {
-        //        clicked(m_Match);
+        clicked(m_Match, m_Match->getPlayer1());
         qDebug() << "MouseRelease On UpperHalf";
         //        QGraphicsItem::mouseReleaseEvent(event);
     }
     else if (lowerHalf.contains(pos))
     {
-        //        clicked(m_Match);
+        clicked(m_Match, m_Match->getPlayer2());
         qDebug() << "MouseRelease On LowerHalf";
         //        QGraphicsItem::mouseReleaseEvent(event);
     }
 }
 
-void GraphicsItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event) { QGraphicsItem::mouseMoveEvent(event); }
+void GraphicsItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+{
+    ignoreClick = true;
+    QGraphicsItem::mouseMoveEvent(event);
+}

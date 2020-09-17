@@ -74,6 +74,7 @@ void Match::finish()
     if (m_Finished) return;
     qDebug() << "Finish match " << m_Name;
     m_Finished = true;
+    m_IsActive = false;
     finished();
 }
 

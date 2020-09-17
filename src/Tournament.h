@@ -22,6 +22,8 @@ class Tournament : public QObject
     QList< Round * > getRounds() const;
     QList< Player * > getPlayers() const;
 
+    Round *getCurrentRound() const;
+
   signals:
     void finished(Player *winner);
     void requestUpdate();
@@ -39,6 +41,7 @@ class Tournament : public QObject
     QList< Round * > m_Rounds;
     QList< Player * > m_Players;
     bool m_Finished = false;
+    Round *m_CurrentRound = Q_NULLPTR;
 };
 
 #endif  // TOURNAMENT_H

@@ -33,7 +33,6 @@ class Match : public QObject
     bool IsActive() const;
     void setActive(bool active);
 
-  private:
     void finish();
 
   signals:

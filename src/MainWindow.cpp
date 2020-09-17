@@ -8,12 +8,8 @@
 #include "GraphicsView.h"
 #include "Settings.h"
 
-
 #include <QTimer>
 #include <QDebug>
-
-// TODO
-// Fehler bei Anzahl Spieler: 3,5,7
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -29,9 +25,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     t->init();
     t->start();
 
-    GraphicsView *view = new GraphicsView(new TournamentGraphicScene(t), this);
+    TournamentGraphicScene *tgs = new TournamentGraphicScene(t);
+    connect(tgs, SIGNAL(itemClicked(Match *, Player *)), this, SLOT(onMatchFinishedPerClick(Match *, Player *)));
+    GraphicsView *view = new GraphicsView(tgs, this);
     view->show();
     ui->centralwidget->layout()->addWidget(view);
 }
 
 MainWindow::~MainWindow() { delete ui; }
+
+void MainWindow::onMatchFinishedPerClick(Match *match, Player *winner) { t->getCurrentRound()->finishMatch(match, winner); }

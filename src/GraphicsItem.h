@@ -22,11 +22,11 @@ class GraphicsItem : public QObject, public QGraphicsItem
     Match *m_Match = Q_NULLPTR;
     QRectF upperHalf;
     QRectF lowerHalf;
-    bool pressing = false;
-    bool moving = false;
+    bool ignoreClick = false;
+
 
   signals:
-    //    void clicked(Player *player);
+    void clicked(Match *match, Player *player);
 
   private slots:
     void requestUpdate();

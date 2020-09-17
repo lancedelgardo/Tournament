@@ -5,17 +5,20 @@
 
 class Tournament;
 class Player;
+class Match;
 
 class TournamentGraphicScene : public QGraphicsScene
 {
+    Q_OBJECT
   public:
     TournamentGraphicScene(Tournament *tournament);
 
   signals:
-    void itemClicked(Player *player);
+    void itemClicked(Match *match, Player *winner);
 
   private slots:
     void requestUpdate();
+    void onItemClicked(Match *match, Player *winner);
 
   private:
     Tournament *m_Tournament = Q_NULLPTR;
