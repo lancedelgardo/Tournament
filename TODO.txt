@@ -1,0 +1,5 @@
+- Alles mit graphicsview
+- Konfiguration, sachen einstellbar machen
+- Aufräumen
+- Lib erstellen + Example
+- speichern laden
