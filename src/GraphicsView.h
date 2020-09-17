@@ -8,7 +8,6 @@ class GraphicsView : public QGraphicsView
   public:
     GraphicsView(QGraphicsScene *scene, QWidget *parent = Q_NULLPTR);
 
-
     // QWidget interface
   protected:
     void mousePressEvent(QMouseEvent *event) override;

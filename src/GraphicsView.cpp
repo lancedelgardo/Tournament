@@ -2,6 +2,7 @@
 
 #include <QMouseEvent>
 #include <QDebug>
+#include <QTimer>
 
 GraphicsView::GraphicsView(QGraphicsScene *scene, QWidget *parent) : QGraphicsView(scene, parent)
 {
@@ -10,7 +11,6 @@ GraphicsView::GraphicsView(QGraphicsScene *scene, QWidget *parent) : QGraphicsVi
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setAlignment(Qt::AlignCenter);
 }
-
 
 void GraphicsView::mousePressEvent(QMouseEvent *event)
 {

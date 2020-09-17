@@ -27,6 +27,17 @@ class TournamentGraphicScene : public QGraphicsScene
     int m_RowSpacing = 10;
     int m_ColumnSpacing = 150;
 
+    QColor backgroundColor1 = QColor("#024C62");
+    QColor backgroundColor2 = QColor("#024C62");
+    QColor backgroundColor3 = QColor("#04627F");
+    QColor backgroundColor4 = QColor("#0394C0");
+    QColor backgroundColor5 = QColor("#04627F");
+    QColor backgroundColor6 = QColor("#024C62");
+
+    QColor roundsBorderColor = QColor(0, 0, 0);
+    QColor roundsBackgroundColor = QColor(0, 0, 0);
+    QColor roundsLineColor = QColor(0, 0, 0);
+
     void init();
 
     // QGraphicsScene interface

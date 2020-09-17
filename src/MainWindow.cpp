@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 {
     ui->setupUi(this);
 
-    Settings *s = Settings::instance();
+    Settings::instance();  // INIT
 
     t = new Tournament(this);
     for (int i = 0; i < 13; i++)

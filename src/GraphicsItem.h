@@ -23,7 +23,13 @@ class GraphicsItem : public QObject, public QGraphicsItem
     QRectF upperHalf;
     QRectF lowerHalf;
     bool ignoreClick = false;
-
+    QColor matchBackgroundColor = QColor(105, 105, 105);
+    QColor activeMatchBorderColor = QColor(117, 233, 0);
+    QColor separatorColor = QColor(255, 255, 255);
+    QColor matchPointsColor = QColor(192, 192, 192);
+    QColor matchPointsWinnerColor = QColor(255, 140, 0);
+    QColor matchPlayerTextColor = QColor(0, 0, 0);
+    QColor matchPointsTextColor = QColor(0, 0, 0);
 
   signals:
     void clicked(Match *match, Player *player);

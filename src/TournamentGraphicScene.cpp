@@ -5,6 +5,8 @@
 #include "GraphicsItem.h"
 #include "Match.h"
 #include "Player.h"
+#include "Settings.h"
+#include "SettingsData.h"
 
 #include <QMap>
 #include <QList>
@@ -17,6 +19,18 @@ TournamentGraphicScene::TournamentGraphicScene(Tournament *tournament)
 {
     m_Tournament = tournament;
     connect(m_Tournament, &Tournament::requestUpdate, this, &TournamentGraphicScene::requestUpdate);
+
+    SettingsData *s = Settings::instance()->getSettingsData();
+    backgroundColor1 = s->getBackgroundColor1();
+    backgroundColor2 = s->getBackgroundColor2();
+    backgroundColor3 = s->getBackgroundColor3();
+    backgroundColor4 = s->getBackgroundColor4();
+    backgroundColor5 = s->getBackgroundColor5();
+    backgroundColor6 = s->getBackgroundColor6();
+    roundsBackgroundColor = s->getRoundsBackgroundColor();
+    roundsBorderColor = s->getRoundsBorderColor();
+    roundsLineColor = s->getRoundsLineColor();
+
     init();
 }
 
@@ -36,8 +50,9 @@ void TournamentGraphicScene::init()
 
     setSceneRect(-100, -100, nRounds * m_MatchWidgetWidth + (nRounds - 1) * m_ColumnSpacing + 200, totalHeight + m_RowSpacing + 200);
 
-    QPen pen(Qt::black);
-    QBrush brush(QColor(32, 32, 32));
+    QPen roundsBorderPen(roundsBorderColor);
+    QPen roundsLinePen(roundsLineColor);
+    QBrush brush(roundsBackgroundColor);
 
     QList< QGraphicsItem * > previousRoundItems;
     QMap< Match *, QGraphicsItem * > items;
@@ -85,25 +100,25 @@ void TournamentGraphicScene::init()
 
                 if (py2 > totalHeight)  // In some cases the lowest widget is outbound at bottom.
                 {
-                    addLine(px0, py0, px1, py1, pen);
+                    addLine(px0, py0, px1, py1, roundsLinePen);
                     int tmp = m_MatchWidgetHeight + m_ColumnSpacing * 0.5;
                     py2 -= tmp;
                     py3 -= tmp;
                     y -= tmp;
-                    addLine(px1, py1, px2, py2, pen);
-                    addLine(px2, py2, px3, py3, pen);
+                    addLine(px1, py1, px2, py2, roundsLinePen);
+                    addLine(px2, py2, px3, py3, roundsLinePen);
                 }
                 else
                 {
-                    addLine(px0, py0, px1, py1, pen);
-                    addLine(px1, py1, px2, py2, pen);
-                    addLine(px2, py2, px3, py3, pen);
+                    addLine(px0, py0, px1, py1, roundsLinePen);
+                    addLine(px1, py1, px2, py2, roundsLinePen);
+                    addLine(px2, py2, px3, py3, roundsLinePen);
                 }
 
                 if (match->getPreviousMatch2())
                 {
-                    addLine(px5, py5, px4, py4, pen);
-                    addLine(px4, py4, px2, py2, pen);
+                    addLine(px5, py5, px4, py4, roundsLinePen);
+                    addLine(px4, py4, px2, py2, roundsLinePen);
                 }
             }
 
@@ -134,7 +149,7 @@ void TournamentGraphicScene::init()
         QGraphicsPathItem *rectItem = new QGraphicsPathItem(path);
         rectItem->setZValue(-1);
         rectItem->setOpacity(0.5);
-        rectItem->setPen(pen);
+        rectItem->setPen(roundsBorderPen);
         rectItem->setBrush(brush);
         addItem(rectItem);
 
@@ -147,12 +162,11 @@ void TournamentGraphicScene::init()
 void TournamentGraphicScene::drawBackground(QPainter *painter, const QRectF &rect)
 {
     QLinearGradient linearGrad(rect.topLeft(), rect.bottomRight());
-    linearGrad.setColorAt(0, QColor("#024C62"));
-    linearGrad.setColorAt(0.2, QColor("#024C62"));
-    linearGrad.setColorAt(0.4, QColor("#04627F"));
-    linearGrad.setColorAt(0.6, QColor("#0394C0"));
-    linearGrad.setColorAt(0.8, QColor("#04627F"));
-    linearGrad.setColorAt(1, QColor("#024C62"));
-    //    QRect rect_linear(50, 50, 200, 200);
+    linearGrad.setColorAt(0, backgroundColor1);
+    linearGrad.setColorAt(0.2, backgroundColor2);
+    linearGrad.setColorAt(0.4, backgroundColor3);
+    linearGrad.setColorAt(0.6, backgroundColor4);
+    linearGrad.setColorAt(0.8, backgroundColor5);
+    linearGrad.setColorAt(1, backgroundColor6);
     painter->fillRect(rect, linearGrad);
 }

@@ -1,6 +1,8 @@
 #include "GraphicsItem.h"
 
 #include "Match.h"
+#include "Settings.h"
+#include "SettingsData.h"
 
 #include <QPainter>
 #include <QPainterPath>
@@ -28,6 +30,15 @@ GraphicsItem::GraphicsItem(const QRectF pos, Match *match, QGraphicsItem *parent
             m_PointsPlayer2 = 1;
         }
     }
+
+    SettingsData *s = Settings::instance()->getSettingsData();
+    matchBackgroundColor = s->getMatchBackgroundColor();
+    activeMatchBorderColor = s->getActiveMatchBorderColor();
+    separatorColor = s->getMatchSeparatorColor();
+    matchPointsColor = s->getMatchPointsBackgroundColor();
+    matchPointsWinnerColor = s->getMatchPointsWinnerBackgroundColor();
+    matchPlayerTextColor = s->getMatchPlayerTextColor();
+    matchPointsTextColor = s->getMatchPointsTextColor();
 }
 
 void GraphicsItem::requestUpdate()
@@ -69,47 +80,55 @@ void GraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
     // Full Rect
     QPainterPath path;
     path.addRoundedRect(rect, 5, 5);
-    painter->fillPath(path, QColor(105, 105, 105));
+    painter->fillPath(path, matchBackgroundColor);
     if (m_Match->IsActive())
     {
-        painter->setPen(QColor(117, 233, 0));
+        painter->setPen(activeMatchBorderColor);
     }
     painter->drawPath(path);
     painter->setPen(QColor(0, 0, 0));
 
     // Middle Seperator
-    QPainterPath seperator;
-    seperator.addRect(rect.x() + 5, rect.height() / 2, rect.width() - 10, 1);
-    painter->fillPath(seperator, QColor(255, 255, 255));
+    QPainterPath separator;
+    separator.addRect(rect.x() + 5, rect.height() / 2, rect.width() - 10, 1);
+    painter->fillPath(separator, separatorColor);
 
     // Upper Half
     // Player Name
     QRectF upperTextRect = boundingRect();
     upperTextRect.setX(upperTextRect.x() + 5);
     upperTextRect.setY((upperTextRect.height() * 0.5 * 0.5) - (textHeight * 0.5 - 3));
+    QPen matchPointsTextPen(matchPointsTextColor);
+    QPen playerTextPen(matchPlayerTextColor);
+    painter->setPen(playerTextPen);
     painter->drawText(upperTextRect, m_Player1, options);
+    painter->setPen(QColor(0, 0, 0));
 
     // Upper Half Points Rect
     QRectF upperPointsRect = QRectF(boundingRect().topRight().x() - (boundingRect().width() / 5) - 5, boundingRect().y() + 5, boundingRect().width() / 5, boundingRect().height() / 2 - 10);
     QPainterPath upperPointsPath;
     upperPointsPath.addRoundedRect(upperPointsRect, 5, 5);
     if (m_Match->getWinner() && m_Match->getWinner() == m_Match->getPlayer1())
-        painter->fillPath(upperPointsPath, QColor(255, 140, 0));
+        painter->fillPath(upperPointsPath, matchPointsWinnerColor);
     else
-        painter->fillPath(upperPointsPath, QColor(192, 192, 192));
+        painter->fillPath(upperPointsPath, matchPointsColor);
 
     // Upper Half Points Text
     QRectF pointsTextRect = upperPointsRect;
     pointsTextRect.setX(upperPointsRect.x() + 15);
     pointsTextRect.setY(upperPointsRect.height() / 2 / 2 + 5);
+    painter->setPen(matchPointsTextPen);
     painter->drawText(pointsTextRect, QString::number(m_PointsPlayer1), options);
+    painter->setPen(QColor(0, 0, 0));
 
     // Lower Half
     // Player Name
     QRectF lowerTextRect = boundingRect();
     lowerTextRect.setX(lowerTextRect.x() + 5);
     lowerTextRect.setY(boundingRect().height() - (lowerTextRect.height() * 0.5) + (textHeight * 0.5 + 5));
+    painter->setPen(playerTextPen);
     painter->drawText(lowerTextRect, m_Player2, options);
+    painter->setPen(QColor(0, 0, 0));
 
     // Lower Half Points Rect
     QRectF lowerPointsRect =
@@ -117,15 +136,17 @@ void GraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
     QPainterPath lowerPointsPath;
     lowerPointsPath.addRoundedRect(lowerPointsRect, 5, 5);
     if (m_Match->getWinner() && m_Match->getWinner() == m_Match->getPlayer2())
-        painter->fillPath(lowerPointsPath, QColor(255, 140, 0));
+        painter->fillPath(lowerPointsPath, matchPointsWinnerColor);
     else
-        painter->fillPath(lowerPointsPath, QColor(192, 192, 192));
+        painter->fillPath(lowerPointsPath, matchPointsColor);
 
     // Lower Half Points Text
     QRectF lowerPointsTextRect = lowerPointsRect;
     lowerPointsTextRect.setX(lowerPointsRect.x() + 15);
     lowerPointsTextRect.setY(lowerPointsRect.height() + lowerPointsRect.height() / 2 + 5);
+    painter->setPen(matchPointsTextPen);
     painter->drawText(lowerPointsTextRect, QString::number(m_PointsPlayer2), options);
+    painter->setPen(QColor(0, 0, 0));
 }
 
 
