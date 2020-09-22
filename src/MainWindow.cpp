@@ -8,7 +8,7 @@
 #include "GraphicsView.h"
 #include "Settings.h"
 #include "SettingsDialog.h"
-
+#include "AddPlayerDialog.h"
 
 #include <QTimer>
 #include <QDebug>
@@ -30,9 +30,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     t->init();
     t->start();
 
-    TournamentGraphicScene *tgs = new TournamentGraphicScene(t);
+    tgs = new TournamentGraphicScene(t);
     connect(tgs, SIGNAL(itemClicked(Match *, Player *)), this, SLOT(onMatchFinishedPerClick(Match *, Player *)));
     connect(tgs, &TournamentGraphicScene::settingsPressed, this, &MainWindow::onSettingsPressed);
+    connect(tgs, &TournamentGraphicScene::addPlayerPressed, this, &MainWindow::onAddPlayerPressed);
     GraphicsView *view = new GraphicsView(tgs, this);
     view->show();
     ui->centralwidget->layout()->addWidget(view);
@@ -48,6 +49,31 @@ void MainWindow::onSettingsPressed()
     if (dia->exec() == QDialog::Accepted)
     {
         Settings::instance()->save();
+        tgs->updateColors();
+    }
+}
+
+void MainWindow::onAddPlayerPressed()
+{
+    if (t)
+    {
+        delete t;
+        t = Q_NULLPTR;
+    }
+
+    AddPlayerDialog *dia = new AddPlayerDialog(this);
+    if (dia->exec() == QDialog::Accepted)
+    {
+        t = new Tournament(this);
+        foreach (auto p, dia->getPlayerList())
+        {
+            t->addPlayer(new Player(p));
+        }
+
+        t->init();
+        t->start();
+
+        tgs->update();
     }
 }
 

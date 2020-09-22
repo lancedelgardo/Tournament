@@ -16,6 +16,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    AddPlayerDialog.cpp \
+    AddPlayerForm.cpp \
+    AddPlayerWidget.cpp \
     GraphicsView.cpp \
     Match.cpp \
     MatchGraphicsItem.cpp \
@@ -35,6 +38,9 @@ SOURCES += \
     MainWindow.cpp
 
 HEADERS += \
+    AddPlayerDialog.h \
+    AddPlayerForm.h \
+    AddPlayerWidget.h \
     GraphicsView.h \
     MainWindow.h \
     Match.h \
@@ -53,6 +59,7 @@ HEADERS += \
     TournamentGraphicScene.h
 
 FORMS += \
+    AddPlayerForm.ui \
     MainWindow.ui \
     MatchWidgetForm.ui \
     SettingsForm.ui

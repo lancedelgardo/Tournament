@@ -7,6 +7,7 @@
 #include <QMap>
 
 class Tournament;
+class TournamentGraphicScene;
 
 QT_BEGIN_NAMESPACE namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -22,6 +23,7 @@ class MainWindow : public QMainWindow
   private slots:
     void onMatchFinishedPerClick(Match *match, Player *winner);
     void onSettingsPressed();
+    void onAddPlayerPressed();
 
   private:
     Ui::MainWindow *ui;
@@ -29,7 +31,8 @@ class MainWindow : public QMainWindow
 
     QMap< Match *, MatchWidget * > matchMap;
 
-    Tournament *t;
+    Tournament *t = Q_NULLPTR;
+    TournamentGraphicScene *tgs = Q_NULLPTR;
 
     // QWidget interface
   protected:

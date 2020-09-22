@@ -13,10 +13,12 @@ class TournamentGraphicScene : public QGraphicsScene
     Q_OBJECT
   public:
     TournamentGraphicScene(Tournament *tournament);
+    void updateColors();
 
   signals:
     void itemClicked(Match *match, Player *winner);
     void settingsPressed();
+    void addPlayerPressed();
 
   private slots:
     void requestUpdate();
@@ -41,6 +43,7 @@ class TournamentGraphicScene : public QGraphicsScene
     QColor roundsLineColor = QColor(0, 0, 0);
 
     QPushButton *settingsPushButton = Q_NULLPTR;
+    QPushButton *addPlayerPushButton = Q_NULLPTR;
 
     void init();
 

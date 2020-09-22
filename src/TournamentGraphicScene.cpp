@@ -34,6 +34,22 @@ TournamentGraphicScene::TournamentGraphicScene(Tournament *tournament)
     init();
 }
 
+void TournamentGraphicScene::updateColors()
+{
+    SettingsData *s = Settings::instance()->getSettingsData();
+    backgroundColor1 = s->getBackgroundColor1();
+    backgroundColor2 = s->getBackgroundColor2();
+    backgroundColor3 = s->getBackgroundColor3();
+    backgroundColor4 = s->getBackgroundColor4();
+    backgroundColor5 = s->getBackgroundColor5();
+    backgroundColor6 = s->getBackgroundColor6();
+    roundsBackgroundColor = s->getRoundsBackgroundColor();
+    roundsBorderColor = s->getRoundsBorderColor();
+    roundsLineColor = s->getRoundsLineColor();
+
+    update();
+}
+
 void TournamentGraphicScene::requestUpdate() { update(); }
 
 void TournamentGraphicScene::onItemClicked(Match *match, Player *winner) { itemClicked(match, winner); }
@@ -145,7 +161,6 @@ void TournamentGraphicScene::init()
 
         QPainterPath path;
         path.addRoundedRect(x - 5, -30, m_MatchWidgetWidth + 10, totalHeight + 35, 10, 10);
-        //        auto rectItem = addRect(x - 5, -30, m_MatchWidgetWidth + 10, totalHeight + 35, pen, brush);
         QGraphicsPathItem *rectItem = new QGraphicsPathItem(path);
         rectItem->setZValue(-1);
         rectItem->setOpacity(0.5);
@@ -161,6 +176,11 @@ void TournamentGraphicScene::init()
     connect(settingsPushButton, SIGNAL(pressed()), this, SIGNAL(settingsPressed()));
     settingsPushButton->setGeometry(0, -100, 32, 32);
     addWidget(settingsPushButton);
+
+    addPlayerPushButton = new QPushButton("Add Player");
+    connect(addPlayerPushButton, SIGNAL(pressed()), this, SIGNAL(addPlayerPressed()));
+    addPlayerPushButton->setGeometry(100, -100, 32, 32);
+    addWidget(addPlayerPushButton);
 }
 
 

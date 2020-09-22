@@ -34,6 +34,15 @@ void SettingsForm::init()
     ui->rlclineEdit->setText(sData->getRoundsLineColor().name());
 
     ui->bg1lineEdit->setStyleSheet(lineEditArgToValidHexColor(sData->getBackgroundColor1().name()));
+    ui->bg2lineEdit->setStyleSheet(lineEditArgToValidHexColor(sData->getBackgroundColor2().name()));
+    ui->bg3lineEdit->setStyleSheet(lineEditArgToValidHexColor(sData->getBackgroundColor3().name()));
+    ui->bg4lineEdit->setStyleSheet(lineEditArgToValidHexColor(sData->getBackgroundColor4().name()));
+    ui->bg5lineEdit->setStyleSheet(lineEditArgToValidHexColor(sData->getBackgroundColor5().name()));
+    ui->bg6lineEdit->setStyleSheet(lineEditArgToValidHexColor(sData->getBackgroundColor6().name()));
+
+    ui->rbglineEdit->setStyleSheet(lineEditArgToValidHexColor(sData->getRoundsBackgroundColor().name()));
+    ui->rbclineEdit->setStyleSheet(lineEditArgToValidHexColor(sData->getRoundsBorderColor().name()));
+    ui->rlclineEdit->setStyleSheet(lineEditArgToValidHexColor(sData->getRoundsLineColor().name()));
 }
 
 void SettingsForm::on_resetColorsPushButton_clicked()
@@ -47,7 +56,7 @@ QString SettingsForm::lineEditArgToValidHexColor(const QString &col) const
     QString colName = col;
     while (colName.size() < 6)
         colName += "0";
-    QString n_col = "Background-color: #" + colName;
+    QString n_col = "Background-color: " + colName;
     return n_col;
 }
 
@@ -135,20 +144,20 @@ void SettingsForm::on_rlcpushButton_9_clicked()
     sData->setRoundsLineColor(n_Col);
 }
 
-void SettingsForm::on_bg1lineEdit_textChanged(const QString &arg1) { ui->bg1lineEdit->setStyleSheet(lineEditArgToValidHexColor(arg1)); }
+void SettingsForm::on_bg1lineEdit_textChanged(const QString &arg1) { ui->bg1lineEdit->setStyleSheet(lineEditArgToValidHexColor("#" + arg1)); }
 
-void SettingsForm::on_bg2lineEdit_textChanged(const QString &arg1) { ui->bg2lineEdit->setStyleSheet(lineEditArgToValidHexColor(arg1)); }
+void SettingsForm::on_bg2lineEdit_textChanged(const QString &arg1) { ui->bg2lineEdit->setStyleSheet(lineEditArgToValidHexColor("#" + arg1)); }
 
-void SettingsForm::on_bg3lineEdit_textChanged(const QString &arg1) { ui->bg3lineEdit->setStyleSheet(lineEditArgToValidHexColor(arg1)); }
+void SettingsForm::on_bg3lineEdit_textChanged(const QString &arg1) { ui->bg3lineEdit->setStyleSheet(lineEditArgToValidHexColor("#" + arg1)); }
 
-void SettingsForm::on_bg4lineEdit_textChanged(const QString &arg1) { ui->bg4lineEdit->setStyleSheet(lineEditArgToValidHexColor(arg1)); }
+void SettingsForm::on_bg4lineEdit_textChanged(const QString &arg1) { ui->bg4lineEdit->setStyleSheet(lineEditArgToValidHexColor("#" + arg1)); }
 
-void SettingsForm::on_bg5lineEdit_textChanged(const QString &arg1) { ui->bg5lineEdit->setStyleSheet(lineEditArgToValidHexColor(arg1)); }
+void SettingsForm::on_bg5lineEdit_textChanged(const QString &arg1) { ui->bg5lineEdit->setStyleSheet(lineEditArgToValidHexColor("#" + arg1)); }
 
-void SettingsForm::on_bg6lineEdit_textChanged(const QString &arg1) { ui->bg6lineEdit->setStyleSheet(lineEditArgToValidHexColor(arg1)); }
+void SettingsForm::on_bg6lineEdit_textChanged(const QString &arg1) { ui->bg6lineEdit->setStyleSheet(lineEditArgToValidHexColor("#" + arg1)); }
 
-void SettingsForm::on_rbglineEdit_textChanged(const QString &arg1) { ui->rbglineEdit->setStyleSheet(lineEditArgToValidHexColor(arg1)); }
+void SettingsForm::on_rbglineEdit_textChanged(const QString &arg1) { ui->rbglineEdit->setStyleSheet(lineEditArgToValidHexColor("#" + arg1)); }
 
-void SettingsForm::on_rbclineEdit_textChanged(const QString &arg1) { ui->rbclineEdit->setStyleSheet(lineEditArgToValidHexColor(arg1)); }
+void SettingsForm::on_rbclineEdit_textChanged(const QString &arg1) { ui->rbclineEdit->setStyleSheet(lineEditArgToValidHexColor("#" + arg1)); }
 
-void SettingsForm::on_rlclineEdit_textChanged(const QString &arg1) { ui->rlclineEdit->setStyleSheet(lineEditArgToValidHexColor(arg1)); }
+void SettingsForm::on_rlclineEdit_textChanged(const QString &arg1) { ui->rlclineEdit->setStyleSheet(lineEditArgToValidHexColor("#" + arg1)); }
