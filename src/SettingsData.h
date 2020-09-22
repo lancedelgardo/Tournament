@@ -13,6 +13,8 @@ class SettingsData : public QObject
     void toJson(QJsonObject &json);
     void fromJson(const QJsonObject &json);
 
+    void resetColors();
+
     QString getTest() const;
     void setTest(const QString &value);
 

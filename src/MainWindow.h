@@ -21,6 +21,7 @@ class MainWindow : public QMainWindow
 
   private slots:
     void onMatchFinishedPerClick(Match *match, Player *winner);
+    void onSettingsPressed();
 
   private:
     Ui::MainWindow *ui;

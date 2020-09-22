@@ -1,4 +1,4 @@
-#include "GraphicsItem.h"
+#include "MatchGraphicsItem.h"
 
 #include "Match.h"
 #include "Settings.h"
@@ -10,14 +10,14 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QDebug>
 
-GraphicsItem::GraphicsItem(const QRectF pos, Match *match, QGraphicsItem *parent) : QGraphicsItem(parent)
+MatchGraphicsItem::MatchGraphicsItem(const QRectF pos, Match *match, QGraphicsItem *parent) : QGraphicsItem(parent)
 {
     m_Match = match;
     m_Pos = pos;
     if (match->getPlayer1()) m_Player1 = match->getPlayer1()->getName();
     if (match->getPlayer2()) m_Player2 = match->getPlayer2()->getName();
-    QObject::connect(match, &Match::finished, this, &GraphicsItem::requestUpdate);
-    QObject::connect(match, &Match::requestUpdate, this, &GraphicsItem::requestUpdate);
+    QObject::connect(match, &Match::finished, this, &MatchGraphicsItem::requestUpdate);
+    QObject::connect(match, &Match::requestUpdate, this, &MatchGraphicsItem::requestUpdate);
 
     if (match->isFinished())
     {
@@ -41,7 +41,7 @@ GraphicsItem::GraphicsItem(const QRectF pos, Match *match, QGraphicsItem *parent
     matchPointsTextColor = s->getMatchPointsTextColor();
 }
 
-void GraphicsItem::requestUpdate()
+void MatchGraphicsItem::requestUpdate()
 {
     Match *match = static_cast< Match * >(QObject::sender());
     if (match->getPlayer1()) m_Player1 = match->getPlayer1()->getName();
@@ -62,9 +62,9 @@ void GraphicsItem::requestUpdate()
     update();
 }
 
-QRectF GraphicsItem::boundingRect() const { return m_Pos; }
+QRectF MatchGraphicsItem::boundingRect() const { return m_Pos; }
 
-void GraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void MatchGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     QRectF rect = boundingRect();
     upperHalf = QRectF(0, 0, rect.width(), rect.height() * 0.5);
@@ -150,13 +150,13 @@ void GraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
 }
 
 
-void GraphicsItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
+void MatchGraphicsItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     if (!m_Match->IsActive()) QGraphicsItem::mousePressEvent(event);
     ignoreClick = false;
 }
 
-void GraphicsItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+void MatchGraphicsItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     if (!m_Match || ignoreClick)
     {
@@ -178,7 +178,7 @@ void GraphicsItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     }
 }
 
-void GraphicsItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+void MatchGraphicsItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     ignoreClick = true;
     QGraphicsItem::mouseMoveEvent(event);

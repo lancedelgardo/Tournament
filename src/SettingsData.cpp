@@ -46,6 +46,29 @@ void SettingsData::fromJson(const QJsonObject &json)
     if (json.contains("MatchPointsTextColor")) matchPointsTextColor.setNamedColor(json["MatchPointsTextColor"].toString());
 }
 
+void SettingsData::resetColors()
+{
+    // TournamentGraphicsScene
+    backgroundColor1 = QColor("#024C62");
+    backgroundColor2 = QColor("#024C62");
+    backgroundColor3 = QColor("#04627F");
+    backgroundColor4 = QColor("#0394C0");
+    backgroundColor5 = QColor("#04627F");
+    backgroundColor6 = QColor("#024C62");
+    roundsBorderColor = QColor(0, 0, 0);
+    roundsBackgroundColor = QColor(0, 0, 0);
+    roundsLineColor = QColor(0, 0, 0);
+
+    // GraphicsItem
+    matchBackgroundColor = QColor(105, 105, 105);
+    activeMatchBorderColor = QColor(117, 233, 0);
+    matchSeparatorColor = QColor(255, 255, 255);
+    matchPointsBackgroundColor = QColor(192, 192, 192);
+    matchPointsWinnerBackgroundColor = QColor(255, 140, 0);
+    matchPointsTextColor = QColor(0, 0, 0);
+    matchPlayerTextColor = QColor(0, 0, 0);
+}
+
 QColor SettingsData::getBackgroundColor1() const { return backgroundColor1; }
 
 void SettingsData::setBackgroundColor1(const QColor &value) { backgroundColor1 = value; }

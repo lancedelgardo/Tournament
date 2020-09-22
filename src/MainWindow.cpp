@@ -3,13 +3,18 @@
 
 #include "Tournament.h"
 #include "RoundWidget.h"
-#include "GraphicsItem.h"
+#include "MatchGraphicsItem.h"
 #include "TournamentGraphicScene.h"
 #include "GraphicsView.h"
 #include "Settings.h"
+#include "SettingsDialog.h"
+
 
 #include <QTimer>
 #include <QDebug>
+
+
+
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -27,6 +32,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     TournamentGraphicScene *tgs = new TournamentGraphicScene(t);
     connect(tgs, SIGNAL(itemClicked(Match *, Player *)), this, SLOT(onMatchFinishedPerClick(Match *, Player *)));
+    connect(tgs, &TournamentGraphicScene::settingsPressed, this, &MainWindow::onSettingsPressed);
     GraphicsView *view = new GraphicsView(tgs, this);
     view->show();
     ui->centralwidget->layout()->addWidget(view);
@@ -36,5 +42,13 @@ MainWindow::~MainWindow() { delete ui; }
 
 void MainWindow::onMatchFinishedPerClick(Match *match, Player *winner) { t->getCurrentRound()->finishMatch(match, winner); }
 
+void MainWindow::onSettingsPressed()
+{
+    SettingsDialog *dia = new SettingsDialog(this);
+    if (dia->exec() == QDialog::Accepted)
+    {
+        Settings::instance()->save();
+    }
+}
 
 void MainWindow::closeEvent(QCloseEvent *event) { Settings::instance()->save(); }

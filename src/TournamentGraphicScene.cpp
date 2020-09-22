@@ -2,7 +2,7 @@
 
 #include "Tournament.h"
 #include "MatchWidgetForm.h"
-#include "GraphicsItem.h"
+#include "MatchGraphicsItem.h"
 #include "Match.h"
 #include "Player.h"
 #include "Settings.h"
@@ -130,7 +130,7 @@ void TournamentGraphicScene::init()
             //            items.insert(match, item);
 
 
-            GraphicsItem *graphicsItem = new GraphicsItem(QRectF(0, 0, m_MatchWidgetWidth, m_MatchWidgetHeight), match);
+            MatchGraphicsItem *graphicsItem = new MatchGraphicsItem(QRectF(0, 0, m_MatchWidgetWidth, m_MatchWidgetHeight), match);
             connect(graphicsItem, SIGNAL(clicked(Match *, Player *)), this, SLOT(onItemClicked(Match *, Player *)));
             graphicsItem->setPos(x, y);
             roundItems.append(graphicsItem);
@@ -156,6 +156,11 @@ void TournamentGraphicScene::init()
         previousRoundItems.clear();
         previousRoundItems.append(roundItems);
     }
+
+    settingsPushButton = new QPushButton("Settings");
+    connect(settingsPushButton, SIGNAL(pressed()), this, SIGNAL(settingsPressed()));
+    settingsPushButton->setGeometry(0, -100, 32, 32);
+    addWidget(settingsPushButton);
 }
 
 

@@ -16,9 +16,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    GraphicsItem.cpp \
     GraphicsView.cpp \
     Match.cpp \
+    MatchGraphicsItem.cpp \
     MatchWidget.cpp \
     MatchWidgetForm.cpp \
     Player.cpp \
@@ -27,16 +27,18 @@ SOURCES += \
     RoundWidget.cpp \
     Settings.cpp \
     SettingsData.cpp \
+    SettingsDialog.cpp \
+    SettingsForm.cpp \
     Tournament.cpp \
     TournamentGraphicScene.cpp \
     main.cpp \
     MainWindow.cpp
 
 HEADERS += \
-    GraphicsItem.h \
     GraphicsView.h \
     MainWindow.h \
     Match.h \
+    MatchGraphicsItem.h \
     MatchWidget.h \
     MatchWidgetForm.h \
     Player.h \
@@ -45,14 +47,20 @@ HEADERS += \
     RoundWidget.h \
     Settings.h \
     SettingsData.h \
+    SettingsDialog.h \
+    SettingsForm.h \
     Tournament.h \
     TournamentGraphicScene.h
 
 FORMS += \
     MainWindow.ui \
-    MatchWidgetForm.ui
+    MatchWidgetForm.ui \
+    SettingsForm.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    res.qrc

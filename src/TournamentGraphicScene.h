@@ -2,6 +2,7 @@
 #define TOURNAMENTGRAPHICSCENE_H
 
 #include <QGraphicsScene>
+#include <QPushButton>
 
 class Tournament;
 class Player;
@@ -15,6 +16,7 @@ class TournamentGraphicScene : public QGraphicsScene
 
   signals:
     void itemClicked(Match *match, Player *winner);
+    void settingsPressed();
 
   private slots:
     void requestUpdate();
@@ -37,6 +39,8 @@ class TournamentGraphicScene : public QGraphicsScene
     QColor roundsBorderColor = QColor(0, 0, 0);
     QColor roundsBackgroundColor = QColor(0, 0, 0);
     QColor roundsLineColor = QColor(0, 0, 0);
+
+    QPushButton *settingsPushButton = Q_NULLPTR;
 
     void init();
 

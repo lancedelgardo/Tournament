@@ -7,11 +7,11 @@
 class Match;
 class Player;
 
-class GraphicsItem : public QObject, public QGraphicsItem
+class MatchGraphicsItem : public QObject, public QGraphicsItem
 {
     Q_OBJECT
   public:
-    GraphicsItem(const QRectF pos, Match *match, QGraphicsItem *parent = nullptr);
+    MatchGraphicsItem(const QRectF pos, Match *match, QGraphicsItem *parent = nullptr);
 
   private:
     int m_PointsPlayer1 = 0;
